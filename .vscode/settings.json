@@ -1,0 +1,3 @@
+{
+  "docker.commands.build": "docker build --force-rm -f \"${dockerfile}\" -t ${tag} \"${context}\""
+}

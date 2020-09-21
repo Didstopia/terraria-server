@@ -1,0 +1,6 @@
+terraria_data/
+*.log
+.DS_Store
+docker_*.sh
+.git/
+.git*
