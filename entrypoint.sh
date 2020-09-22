@@ -17,10 +17,11 @@ if [ "$TERRACORD_ENABLED" = "true" ]; then
   TERRACORD_XML=/tshock/tshock/Terracord/terracord.xml
   cp -fr /tshock/Terracord.dll /tshock/ServerPlugins/
 
-  # Disable broadcast and save messages, as well as relay connection status in Discord
-  xmlstarlet ed --inplace -u '/configuration/silence/@broadcasts' -v 'true' ${TERRACORD_XML}
-  xmlstarlet ed --inplace -u '/configuration/silence/@saves' -v 'true' ${TERRACORD_XML}
-  xmlstarlet ed --inplace -u '/configuration/announce/@reconnect' -v 'false' ${TERRACORD_XML}
+  # Override message silencing preferences
+  xmlstarlet ed --inplace -u '/configuration/silence/@broadcasts' -v "${TERRACORD_SILENCE_BROADCASTS}" ${TERRACORD_XML}
+  xmlstarlet ed --inplace -u '/configuration/silence/@chat' -v "${TERRACORD_SILENCE_CHAT}" ${TERRACORD_XML}
+  xmlstarlet ed --inplace -u '/configuration/silence/@saves' -v "${TERRACORD_SILENCE_SAVES}" ${TERRACORD_XML}
+  xmlstarlet ed --inplace -u '/configuration/announce/@reconnect' -v "${TERRACORD_ANNOUNCE_RECONNECT}" ${TERRACORD_XML}
 
   # Setup Discord bot token
   if [ ! -z "$TERRACORD_BOT_TOKEN" ]; then
