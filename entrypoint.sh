@@ -17,6 +17,12 @@ if [ "$TERRACORD_ENABLED" = "true" ]; then
   TERRACORD_XML=/tshock/tshock/Terracord/terracord.xml
   cp -fr /tshock/Terracord.dll /tshock/ServerPlugins/
 
+  # Disable broadcast and save messages, as well as relay connection status in Discord
+  xmlstarlet ed --inplace -u '/configuration/silence/@broadcasts' -v 'true' ${TERRACORD_XML}
+  xmlstarlet ed --inplace -u '/configuration/silence/@saves' -v 'true' ${TERRACORD_XML}
+  xmlstarlet ed --inplace -u '/configuration/announce/@reconnect' -v 'false' ${TERRACORD_XML}
+
+  # Setup Discord bot token
   if [ ! -z "$TERRACORD_BOT_TOKEN" ]; then
     xmlstarlet ed --inplace -u '/configuration/bot/@token' -v "${TERRACORD_BOT_TOKEN}" ${TERRACORD_XML}
     echo "Terracord bot token set"
@@ -24,6 +30,8 @@ if [ "$TERRACORD_ENABLED" = "true" ]; then
     echo "ERROR: Missing Terracord bot token (TERRACORD_BOT_TOKEN)"
     exit 1
   fi
+
+  # Setup Discord bot channel
   if [ ! -z "$TERRACORD_CHANNEL_ID" ]; then
     xmlstarlet ed --inplace -u '/configuration/channel/@id' -v "${TERRACORD_CHANNEL_ID}" ${TERRACORD_XML}
     echo "Terracord channel id set"
@@ -31,6 +39,8 @@ if [ "$TERRACORD_ENABLED" = "true" ]; then
     echo "ERROR: Missing Terracord channel id (TERRACORD_CHANNEL_ID)"
     exit 1
   fi
+
+  # Setup Discord bot owner
   if [ ! -z "$TERRACORD_OWNER_ID" ]; then
     xmlstarlet ed --inplace -u '/configuration/owner/@id' -v "${TERRACORD_OWNER_ID}" ${TERRACORD_XML}
     echo "Terracord owner id set"
