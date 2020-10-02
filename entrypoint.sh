@@ -23,6 +23,10 @@ if [ "$TERRACORD_ENABLED" = "true" ]; then
   xmlstarlet ed --inplace -u '/configuration/silence/@saves' -v "${TERRACORD_SILENCE_SAVES}" ${TERRACORD_XML}
   xmlstarlet ed --inplace -u '/configuration/announce/@reconnect' -v "${TERRACORD_ANNOUNCE_RECONNECT}" ${TERRACORD_XML}
 
+  # Override emojis
+  xmlstarlet ed --inplace -u '/configuration/join/@prefix' -v "${TERRACORD_EMOJI_JOIN}" ${TERRACORD_XML}
+  xmlstarlet ed --inplace -u '/configuration/leave/@prefix' -v "${TERRACORD_EMOJI_LEAVE}" ${TERRACORD_XML}
+
   # Setup Discord bot token
   if [ ! -z "$TERRACORD_BOT_TOKEN" ]; then
     xmlstarlet ed --inplace -u '/configuration/bot/@token' -v "${TERRACORD_BOT_TOKEN}" ${TERRACORD_XML}

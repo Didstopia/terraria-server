@@ -36,7 +36,7 @@ RUN apt-get update && \
     nuget update -self
 RUN git clone --recurse-submodules -j8 --depth 1 --branch master https://github.com/FragLand/terracord.git /app && \
     cd /app && \
-    git checkout d52c708a2413d86e57f67fe2c75f494ba5a3730a
+    git checkout f034948040889602095053b8e401d8b4efef3c83
 WORKDIR /app
 RUN mkdir -p /app/lib
 COPY --from=tshock /app/TShockAPI/bin/${BUILD_MODE}/ /app/lib/
@@ -54,6 +54,8 @@ ENV TERRACORD_SILENCE_BROADCASTS=true
 ENV TERRACORD_SILENCE_CHAT=false
 ENV TERRACORD_SILENCE_SAVES=true
 ENV TERRACORD_ANNOUNCE_RECONNECT=false
+ENV TERRACORD_EMOJI_JOIN=":green_circle:"
+ENV TERRACORD_EMOJI_LEAVE=":red_circle:"
 EXPOSE 7777 7878
 RUN apt-get update && \
     apt-get upgrade -y && \
