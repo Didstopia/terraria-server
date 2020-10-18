@@ -4,7 +4,7 @@
 # Build TShock
 FROM mono:6.8 AS tshock
 LABEL maintainer="Didstopia <support@didstopia.com>"
-ENV TSHOCK_VERSION=v4.4.0-pre12
+ENV TSHOCK_VERSION=v4.4.0-pre13
 ENV BUILD_MODE=Release
 RUN apt-get update && \
     apt-get upgrade -y && \
